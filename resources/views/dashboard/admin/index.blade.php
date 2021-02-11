@@ -11,7 +11,7 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-          <a class="navbar-brand" href="/">LaundryIN</a>
+          <a class="navbar-brand" href="#">LaundryIN</a>
           <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
               aria-expanded="false" aria-label="Toggle navigation"></button>
           <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -19,16 +19,25 @@
                   <li class="nav-item active">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                   </li>
-                  <!-- <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                  </li> -->
-                  <li class="nav-item dropdown">
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Data Customer</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Data Petugas</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Data Pemilik</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Data Outlet</a>
+                  </li>
+                  <!-- <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data</a>
                       <div class="dropdown-menu" aria-labelledby="dropdownId">
                           <a class="dropdown-item" href="#">Action 1</a>
                           <a class="dropdown-item" href="#">Action 2</a>
                       </div>
-                  </li>
+                  </li> -->
               </ul>
               <form class="form-inline my-2 my-lg-0">
                   <input class="form-control mr-sm-2" type="text" placeholder="Search">
@@ -38,6 +47,8 @@
       </nav>
 
       <div class="container">
+      <h1 class="user-select-none mt-4">Dashboard</h1>
+      <p class="user-select-none mb-4">Selamat datang Admin di Dashboard LaundryIN </p>
       <table class="table">
         <tr>
             <td><div class="card md-5 mt-3">
