@@ -20,7 +20,7 @@
                             <a class="nav-link" href="/dashboard/admin">Home </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/dashboard/admin/customer">Data Customer <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=".">Data Customer <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="pesanan">Data Pesanan</a>
@@ -48,49 +48,61 @@
                     </form>
                 </div>
             </nav>
-        <div class="container">
-                <table class="table">
-                        <tr>
-                              <td><h1 class="user-select-none mt-4">Detail Data Customer</h1>
-                                  <p class="user-select-none mb-2">Berikut adalah Detail data untuk Data Customer. </p>
-                              </td>
-                        </tr>
-                </table>
-                <div class="card">
-                    <div class="card-header">
-                        Dashboard > Admin > Data Customer > Detail
-                        <form action="" method="POST" class="d-inline float-right">
-                            @method('delete')
+            <div class="container">
+                    <h1 class="mt-3">Tambah Data Customer</h1>
+            
+                    <div class="card">
+                        <div class="card-header">
+                            Dashboard > Data Customer > Tambah Data Customer
+                        </div>
+                        <form action="/customer" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                        <a name="" id="" class="btn btn-info float-right mr-3" href="#" role="button">Update</a>
-                    </div>
-                    <div class="card-body">
-        
-                        {{-- ID --}}
-                        <h5 class="card-title">ID</h5>
-                        <p class="card-text">C001</p>
-        
-                        {{-- NAMA --}}
-                        <h5 class="card-title">Nama</h5>
-                        <p class="card-text">Ahmad</p>
+            
+                        <div class="card-body">
+            
+                            {{-- ID Customer --}}
+                            <h5 class="card-title">ID</h5>
+                            <div class="form-group">
+                            <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="ID Customer">
+                              <small id="helpId" class="form-text text-muted">ID Customer</small>
+                            </div>
+            
+                            {{-- NAMA SISWA --}}
+                            <h5 class="card-title">Nama</h5>
+                            <div class="form-group">
+                            <input type="text" class="form-control" name="nama" id="nama" aria-describedby="helpId" placeholder="Nama Customer">
+                                <small id="helpId" class="form-text text-muted">Nama Customer</small>
+                            </div>
+                                
+                            {{-- JENIS KELAMIN --}}
+                            <h5 class="card-title">Jenis Kelamin</h5>
+                            <div class="form-group">
+                            <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                                <option value="pria">Pria</option>
+                                <option value="wanita">Wanita</option>
+                            </select>
+                                <small id="helpId" class="form-text text-muted">Jenis Kelamin Customer</small>
+                            </div>
 
-                        {{-- Alamat --}}
-                        <h5 class="card-title">Alamat</h5>
-                        <p class="card-text">Jalan Merdeka</p>
-        
-                        {{-- JENIS KELAMIN --}}
-                        <h5 class="card-title">Jenis Kelamin</h5>
-                        <p class="card-text">Pria</p>
-        
-        
-                        {{-- NO TELEPHONE/HANDPHONE --}}
-                        <h5 class="card-title">No Telephone</h5>
-                        <p class="card-text">021 8808321</p>
+                            {{-- JENIS KELAMIN --}}
+                            <h5 class="card-title">Alamat</h5>
+                            <div class="form-group">
+                              <textarea class="form-control" name="alamat" id="alamat" rows="3"></textarea>
+                                <small id="helpId" class="form-text text-muted">Alamat Customer</small>
+                            </div>
+            
+                            {{-- NO TELEPHONE/HANDPHONE --}}
+                            <h5 class="card-title">No Telephon / Handphone</h5>
+                            <div class="form-group">
+                            <input type="text" class="form-control" name="no_telephone" id="no_telephone" aria-describedby="helpId" placeholder="No Telephone/Handphone Siswa">
+                                <small id="helpId" class="form-text text-muted">No Telephone/Handphone</small>
+            
+                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                           
+                        </div>
+                    </form>
                     </div>
                 </div>
-            </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -49,7 +49,15 @@
                 </div>
             </nav>
             <div class="container">
-                <div class="card mt-4">
+                <table class="table">
+                        <tr>
+                              <td><h1 class="user-select-none mt-4">Data Customer</h1>
+                                  <p class="user-select-none mb-2">Berikut adalah Index data untuk semua Data Customer. </p>
+                              </td>
+                              <td><center><a name="" id="" class="btn btn-primary mt-5" href="customer/add" role="button">Tambah Data</a></center></td>
+                        </tr>
+                </table>
+                <div class="card">
                     <div class="card-header">
                         Dashboard > Admin > Data Customer
                     </div>
@@ -70,7 +78,7 @@
                                         <td>C001</td>
                                         <td>Ahmad</td>
                                         <td>
-                                            <a class="badge badge-primary" href="">Detail</a>
+                                            <a class="badge badge-primary" href="customer/detail">Detail</a>
                                         </td>
                                     </tr>
                                     <tr>

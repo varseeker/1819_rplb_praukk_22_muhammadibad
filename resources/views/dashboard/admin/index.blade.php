@@ -92,8 +92,8 @@
                     Owner
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Data Owner</h4>
-                    <p class="card-text">12</p>
+                    <h4 class="card-title">Data Pesanan</h4>
+                    <p class="card-text">2458</p>
                 </div>
             </div></td>
         </tr>

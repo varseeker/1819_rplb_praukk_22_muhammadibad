@@ -48,7 +48,14 @@
             </form>
         </div>
     </nav>
-    <div class="container mt-4">
+    <div class="container">
+            <table class="table">
+                <tr>
+                    <td><h1 class="user-select-none mt-4">Data Pesanan</h1>
+                        <p class="user-select-none mb-2">Berikut adalah Index data untuk semua Data Pesanan. </p>
+                    </td>
+                </tr>
+            </table>
         <div class="card">
             <div class="card-header">
                 Dashboard > Admin > Data Pesanan

@@ -31,3 +31,9 @@ Route::get('/dashboard/admin/pesanan', function () {
 Route::get('/dashboard/admin/customer', function () {
     return view('dashboard/admin/d_customer/index');
 });
+Route::get('/dashboard/admin/customer/detail', function () {
+    return view('dashboard/admin/d_customer/show');
+});
+Route::get('/dashboard/admin/customer/add', function () {
+    return view('dashboard/admin/d_customer/add');
+});
