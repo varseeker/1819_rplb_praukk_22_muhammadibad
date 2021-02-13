@@ -49,10 +49,9 @@
       <div class="container">
       <table class="table">
       <tr>
-            <td><h1 class="user-select-none mt-4">Dashboard</h1>
-                <p class="user-select-none mb-4">Selamat datang Admin di Dashboard LaundryIN </p>
-            </td>
-            <td><center><a name="" id="" class="btn btn-primary mt-5" href="#" role="button">Data Pengguna</a></center></td>
+      <td><h1 class="user-select-none mt-4">Dashboard</h1>
+      <p class="user-select-none mb-4">Selamat datang Admin di Dashboard LaundryIN </p></td>
+      <td><center><a name="" id="" class="btn btn-primary mt-5" href="#" role="button">Data Pengguna</a></center></td>
       </tr>
       </table>
       <table class="table">
@@ -95,36 +94,16 @@
             </div></td>
         </tr>
       </table>
-        <table class="table table-striped table-inverse">
-            <thead class="thead-inverse">
-                <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Log</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td>Rey</td>
-                        <td>11/02/2021:18.00</td>
-                    </tr>
-                    <tr>
-                        <td scope="row">2</td>
-                        <td>Ariel</td>
-                        <td>11/01/2021:21.45</td>
-                    </tr>
-                </tbody>
-        </table>
-      </div>
-      <footer class="">
-      <div class="card" style="background-color:lightcyan; border-color:white;">
+            <div class="card" style="background-color:lightcyan; border-color:white;">
               <img class="card-img-top" src="holder.js/100x180/" alt="">
               <div class="card-body">
                 <h4 class="card-title">LaundryIN</h4>
                 <p class="card-text">Presented By <b><i>Muhammad Ibad</i></b></p>
               </div>
             </div>
+      </div>
+      <footer class="">
+            
       </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
