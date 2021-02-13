@@ -22,3 +22,12 @@ Route::get('/dashboard/admin', function () {
 Route::get('/login', function () {
     return view('auth/login');
 });
+Route::get('/register', function () {
+    return view('auth/register');
+});
+Route::get('/dashboard/admin/pesanan', function () {
+    return view('dashboard/admin/d_pesanan/index');
+});
+Route::get('/dashboard/admin/customer', function () {
+    return view('dashboard/admin/d_customer/index');
+});

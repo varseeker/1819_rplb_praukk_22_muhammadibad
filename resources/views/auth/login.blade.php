@@ -51,6 +51,9 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="{{ url('register')}}">Dont Have an account? Go to Register</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
