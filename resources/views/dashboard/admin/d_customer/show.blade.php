@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
                 <a class="navbar-brand" href="#">LaundryIN</a>
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                     aria-expanded="false" aria-label="Toggle navigation"></button>
@@ -20,16 +20,13 @@
                             <a class="nav-link" href="/dashboard/admin">Home </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/dashboard/admin/customer">Data Customer <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="customer">Data Customer <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="pesanan">Data Pesanan</a>
+                          <a class="nav-link" href="pesanan">Data Transaksi</a>
                       </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Data Petugas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Data Pemilik</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Data Outlet</a>
@@ -64,30 +61,30 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        <a name="" id="" class="btn btn-info float-right mr-3" href="#" role="button">Update</a>
+                        <a name="" id="" class="btn btn-info float-right mr-3" href="edit" role="button">Update</a>
                     </div>
                     <div class="card-body">
         
                         {{-- ID --}}
                         <h5 class="card-title">ID</h5>
-                        <p class="card-text">C001</p>
+                        <p class="card-text">{{ $customer->id }}</p>
         
                         {{-- NAMA --}}
                         <h5 class="card-title">Nama</h5>
-                        <p class="card-text">Ahmad</p>
+                        <p class="card-text">{{ $customer->nama }}</p>
 
                         {{-- Alamat --}}
                         <h5 class="card-title">Alamat</h5>
-                        <p class="card-text">Jalan Merdeka</p>
+                        <p class="card-text">{{ $customer->alamat }}</p>
         
                         {{-- JENIS KELAMIN --}}
                         <h5 class="card-title">Jenis Kelamin</h5>
-                        <p class="card-text">Pria</p>
+                        <p class="card-text">{{ $customer->jenis_kelamin }}</p>
         
         
                         {{-- NO TELEPHONE/HANDPHONE --}}
                         <h5 class="card-title">No Telephone</h5>
-                        <p class="card-text">021 8808321</p>
+                        <p class="card-text">{{ $customer->tlp }}</p>
                     </div>
                 </div>
             </div>

@@ -23,13 +23,10 @@
                             <a class="nav-link" href="customer">Data Customer <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="pesanan">Data Pesanan</a>
+                          <a class="nav-link" href="pesanan">Data Transaksi</a>
                       </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Data Petugas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Data Pemilik</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Data Outlet</a>
@@ -73,22 +70,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach ($customer as $key => $customers)
                                     <tr>
-                                        <td scope="row">1</td>
-                                        <td>C001</td>
-                                        <td>Ahmad</td>
+                                        <td scope="row">{{ $customer->firstItem() + $key }}</td>
+                                        <td>{{ $customers->id }}</td>
+                                        <td>{{ $customers->nama }}</td>
                                         <td>
-                                            <a class="badge badge-primary" href="customer/detail">Detail</a>
+                                            <a href="customer/{{ $customers->id }}/show" class="badge badge-primary">Show</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td scope="row"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                @endforeach
                                 </tbody>
                         </table>
+                        {{ $customer->links() }}
                     </div>
                 </div>
             </div>

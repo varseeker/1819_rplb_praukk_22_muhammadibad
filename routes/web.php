@@ -16,6 +16,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/search-customer', 'C_Customer@cari');
+Route::get('/search-transaksi', 'C_Transaksi@cari');
+
+Route::get('/dashboard/admin/customer', 'C_Customer@index');
+Route::get('/dashboard/admin/customer/{customer}/show', 'C_Customer@show');
+Route::get('/dashboard/admin/customer/add', 'C_Customer@create');
+Route::post('/dashboard/admin/customer', 'C_Customer@store');
+Route::get('/dashboard/admin/customer/{customer}/edit', 'C_Customer@edit');
+Route::patch('/dashboard/admin/customer/{customer}/edit', 'C_Customer@update');
+Route::delete('/dashboard/admin/customer/show/{customer}', 'C_Customer@destroy');
+
+Route::get('/transaksi', 'C_Transaksi@index');
+Route::get('/transaksi/show/{transaksi}', 'C_Transaksi@show');
+Route::get('/transaksi/add', 'C_Transaksi@create');
+Route::post('/transaksi', 'C_Transaksi@store');
+Route::get('/transaksi/edit/{transaksi}', 'C_Transaksi@edit');
+Route::patch('/transaksi/edit/{transaksi}', 'C_Transaksi@update');
+Route::delete('/transaksi/show/{transaksi}', 'C_Transaksi@destroy');
+
 Route::get('/dashboard/admin', function () {
     return view('dashboard/admin/index');
 });
@@ -27,13 +51,4 @@ Route::get('/register', function () {
 });
 Route::get('/dashboard/admin/pesanan', function () {
     return view('dashboard/admin/d_pesanan/index');
-});
-Route::get('/dashboard/admin/customer', function () {
-    return view('dashboard/admin/d_customer/index');
-});
-Route::get('/dashboard/admin/customer/detail', function () {
-    return view('dashboard/admin/d_customer/show');
-});
-Route::get('/dashboard/admin/customer/add', function () {
-    return view('dashboard/admin/d_customer/add');
 });
