@@ -54,6 +54,11 @@
                               <td><center><a name="" id="" class="btn btn-primary mt-5" href="customer/add" role="button">Tambah Data</a></center></td>
                         </tr>
                 </table>
+                @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                            @endif
                 <div class="card">
                     <div class="card-header">
                         Dashboard > Admin > Data Customer

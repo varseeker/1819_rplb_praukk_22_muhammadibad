@@ -122,8 +122,8 @@ class C_Customer extends Controller
      */
     public function destroy(M_Customer $customer)
     {
-        M_Customer::destroy($customer->nis);
+        M_Customer::destroy($customer->id);
 
-        return redirect('/customer');
+        return redirect('/dashboard/admin/customer')->with('status', 'Hapus data customer berhasil !');
     }
 }

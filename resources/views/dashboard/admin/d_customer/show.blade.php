@@ -61,7 +61,7 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        <a name="" id="" class="btn btn-info float-right mr-3" href="edit" role="button">Update</a>
+                        <a name="" id="" class="btn btn-info float-right mr-3" href="../{{ $customer->id }}/edit" role="button">Update</a>
                     </div>
                     <div class="card-body">
         

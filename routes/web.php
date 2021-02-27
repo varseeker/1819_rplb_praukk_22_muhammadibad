@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+#Authentikasi
+Route::get('/login', 'authentikasi@getLogin')->name('login');
+Route::post('/login', 'authentikasi@postLogin');
+Route::get('/register', 'authentikasi@getRegister');
+Route::post('/register', 'authentikasi@postRegister');
+
 Route::get('/home', function () {
     return view('home');
 });
@@ -30,15 +36,7 @@ Route::get('/dashboard/admin/customer/add', 'C_Customer@create');
 Route::post('/dashboard/admin/customer', 'C_Customer@store');
 Route::get('/dashboard/admin/customer/{customer}/edit', 'C_Customer@edit');
 Route::patch('/dashboard/admin/customer/{customer}/edit', 'C_Customer@update');
-Route::delete('/dashboard/admin/customer/show/{customer}', 'C_Customer@destroy');
-
-Route::get('/transaksi', 'C_Transaksi@index');
-Route::get('/transaksi/show/{transaksi}', 'C_Transaksi@show');
-Route::get('/transaksi/add', 'C_Transaksi@create');
-Route::post('/transaksi', 'C_Transaksi@store');
-Route::get('/transaksi/edit/{transaksi}', 'C_Transaksi@edit');
-Route::patch('/transaksi/edit/{transaksi}', 'C_Transaksi@update');
-Route::delete('/transaksi/show/{transaksi}', 'C_Transaksi@destroy');
+Route::delete('/dashboard/admin/customer/{customer}/show', 'C_Customer@destroy');
 
 Route::get('/dashboard/admin', function () {
     return view('dashboard/admin/index');
