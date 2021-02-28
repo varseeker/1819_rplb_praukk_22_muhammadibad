@@ -17,11 +17,11 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard </a>
+                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
                 </li>
                 @if (Auth::user()->role == 'Admin' )
-                  <li class="nav-item active">
-                  <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
@@ -32,13 +32,13 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pemilik') }}">Data Pemilik</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
 
                   @elseif ( Auth::user()->role == 'Owner')
-                  <li class="nav-item active">
-                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
@@ -46,27 +46,27 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
 
                   @elseif ( Auth::user()->role == 'Petugas')
-                  <li class="nav-item active">
-                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
 
                   @elseif ( Auth::user()->role == 'Customer')
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
                 @endif
 
@@ -92,66 +92,60 @@
         </div>
     </nav>
             <div class="container">
-                <table class="table">
-                        <tr>
-                              <td><h1 class="user-select-none mt-4">Update Data Customer</h1>
-                                  <p class="user-select-none mb-2">Berikut adalah Form Edit data untuk Data Customer dengan ID {{ $customer->id }}. </p>
-                              </td>
-                        </tr>
-                </table>
-                <div class="card">
-                <div class="card-header">
-                        Dashboard > Data Customer > Detail > Update
+                    <h1 class="mt-3">Tambah Data Customer</h1>
+            
+                    <div class="card">
+                        <div class="card-header">
+                            Dashboard > Data Customer > Tambah Data Customer
+                        </div>
+                        <form action="/dashboard/admin/customer" method="post">
+                            @csrf
+            
+                        <div class="card-body">
+            
+                            {{-- ID CUSTOMER --}}
+                            <h5 class="card-title">ID</h5>
+                            <div class="form-group">
+                            <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="ID Customer">
+                              <small id="helpId" class="form-text text-muted">ID Customer</small>
+                            </div>
+            
+                            {{-- NAMA CUSTOMER --}}
+                            <h5 class="card-title">Nama</h5>
+                            <div class="form-group">
+                            <input type="text" class="form-control" name="nama" id="nama" aria-describedby="helpId" placeholder="Nama Customer">
+                                <small id="helpId" class="form-text text-muted">Nama Customer</small>
+                            </div>
+                                
+                            {{-- JENIS KELAMIN --}}
+                            <h5 class="card-title">Jenis Kelamin</h5>
+                            <div class="form-group">
+                            <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                                <option value="pria">Pria</option>
+                                <option value="wanita">Wanita</option>
+                            </select>
+                                <small id="helpId" class="form-text text-muted">Jenis Kelamin Customer</small>
+                            </div>
+
+                            {{-- JENIS KELAMIN --}}
+                            <h5 class="card-title">Alamat</h5>
+                            <div class="form-group">
+                              <textarea class="form-control" name="alamat" id="alamat" rows="3"></textarea>
+                                <small id="helpId" class="form-text text-muted">Alamat Customer</small>
+                            </div>
+            
+                            {{-- NO TELEPHONE/HANDPHONE --}}
+                            <h5 class="card-title">No Telephon / Handphone</h5>
+                            <div class="form-group">
+                            <input type="text" class="form-control" name="tlp" id="tlp" aria-describedby="helpId" placeholder="No Telephone/Handphone Siswa">
+                                <small id="helpId" class="form-text text-muted">No Telephone/Handphone</small>
+            
+                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                           
+                        </div>
+                    </form>
                     </div>
-                    <form action="edit" method="post">
-                @csrf
-                @method('PATCH')
-
-            <div class="card-body">
-
-                {{-- ID --}}
-                <h5 class="card-title">ID</h5>
-                <div class="form-group">
-                <input disabled type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="{{ $customer->id }}">
-                  <small id="helpId" class="form-text text-muted">ID Customer</small>
                 </div>
-
-                {{-- NAMA --}}
-                <h5 class="card-title">Nama</h5>
-                <div class="form-group">
-                <input type="text" class="form-control" name="nama" id="nama" aria-describedby="helpId" placeholder="Nama Customer" value="{{ $customer->nama }}">
-                    <small id="helpId" class="form-text text-muted">Nama Customer</small>
-                </div>
-
-                {{-- JENIS KELAMIN --}}
-                <h5 class="card-title">Alamat</h5>
-                <div class="form-group">
-                      <textarea class="form-control" name="alamat" id="alamat" rows="3">{{ $customer->alamat }}</textarea>
-                  <small id="helpId" class="form-text text-muted">Alamat Customer</small>
-                </div>
-
-                {{-- JENIS KELAMIN --}}
-                <h5 class="card-title">Jenis Kelamin</h5>
-                <div class="form-group">
-                    <select class="custom-select" name="jenis_kelamin" id="jenis_kelamin">
-                        <option value="Pria" @if($customer->jenis_kelamin == 'Pria') selected @endif >Pria</option>
-                        <option value="Wanita" @if($customer->jenis_kelamin == 'Wanita') selected @endif >Wanita</option>
-                    </select>
-                    <small id="helpId" class="form-text text-muted">Jenis Kelamin Customer</small>
-                </div>
-
-                {{-- NO TELEPHONE/HANDPHONE --}}
-                <h5 class="card-title">No Telephon / Handphone</h5>
-                <div class="form-group">
-                <input type="text" class="form-control" name="tlp" id="tlp" aria-describedby="helpId" placeholder="No Telephone/Handphone Customer" value="{{ $customer->tlp }}">
-                    <small id="helpId" class="form-text text-muted">No Telephone/Handphone</small>
-
-                <button type="submit" class="btn btn-primary mt-3">Submit</button>
-               
-            </div>
-        </form>
-                </div>
-            </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

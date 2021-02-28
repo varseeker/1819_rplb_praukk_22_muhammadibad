@@ -17,11 +17,11 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard </a>
+                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
                 </li>
                 @if (Auth::user()->role == 'Admin' )
-                  <li class="nav-item active">
-                  <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
@@ -32,13 +32,13 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pemilik') }}">Data Pemilik</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
 
                   @elseif ( Auth::user()->role == 'Owner')
-                  <li class="nav-item active">
-                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
@@ -46,27 +46,27 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
 
                   @elseif ( Auth::user()->role == 'Petugas')
-                  <li class="nav-item active">
-                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
 
                   @elseif ( Auth::user()->role == 'Customer')
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
                 @endif
 
@@ -101,7 +101,7 @@
                 </table>
                 <div class="card">
                 <div class="card-header">
-                        Dashboard > Data Customer > Detail > Update
+                        Dashboard > Admin > Data Customer > Detail > Update
                     </div>
                     <form action="edit" method="post">
                 @csrf

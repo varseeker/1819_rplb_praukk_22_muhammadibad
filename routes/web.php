@@ -18,10 +18,10 @@ Route::get('/', function () {
 });
 
 #Authentikasi
-Route::get('/login', 'authentikasi@getLogin')->name('login');
-Route::post('/login', 'authentikasi@postLogin');
-Route::get('/register', 'authentikasi@getRegister');
-Route::post('/register', 'authentikasi@postRegister');
+Route::get('/login', 'Authentikasi@getLogin')->name('login');
+Route::post('/login', 'Authentikasi@postLogin');
+Route::get('/register', 'Authentikasi@getRegister');
+Route::post('/register', 'Authentikasi@postRegister');
 
 Route::get('/home', function () {
     return view('home');
@@ -30,23 +30,44 @@ Route::get('/home', function () {
 Route::get('/search-customer', 'C_Customer@cari');
 Route::get('/search-transaksi', 'C_Transaksi@cari');
 
-Route::get('/dashboard/admin/customer', 'C_Customer@index');
-Route::get('/dashboard/admin/customer/{customer}/show', 'C_Customer@show');
-Route::get('/dashboard/admin/customer/add', 'C_Customer@create');
-Route::post('/dashboard/admin/customer', 'C_Customer@store');
-Route::get('/dashboard/admin/customer/{customer}/edit', 'C_Customer@edit');
-Route::patch('/dashboard/admin/customer/{customer}/edit', 'C_Customer@update');
-Route::delete('/dashboard/admin/customer/{customer}/show', 'C_Customer@destroy');
+Route::group(['middleware' => 'auth'], function() {
 
-Route::get('/dashboard/admin', function () {
+#Data Customer
+Route::get('/dashboard/customer', 'C_Customer@index');
+Route::get('/dashboard/customer/{customer}/show', 'C_Customer@show');
+Route::get('/dashboard/customer/add', 'C_Customer@create');
+Route::post('/dashboard/customer', 'C_Customer@store');
+Route::get('/dashboard/customer/{customer}/edit', 'C_Customer@edit');
+Route::patch('/dashboard/customer/{customer}/edit', 'C_Customer@update');
+Route::delete('/dashboard/customer/{customer}/show', 'C_Customer@destroy');
+
+#Data Outlet
+Route::get('/dashboard/outlet', 'C_Outlet@index');
+Route::get('/dashboard/outlet/{outlet}/show', 'C_Outlet@show');
+Route::get('/dashboard/outlet/add', 'C_Outlet@create');
+Route::post('/dashboard/outlet', 'C_Outlet@store');
+Route::get('/dashboard/outlet/{outlet}/edit', 'C_Outlet@edit');
+Route::patch('/dashboard/outlet/{outlet}/edit', 'C_Outlet@update');
+Route::delete('/dashboard/outlet/{outlet}/show', 'C_Outlet@destroy');
+
+#Data Paket
+Route::get('/dashboard/paket', 'C_Paket@index');
+Route::get('/dashboard/paket/{paket}/show', 'C_Paket@show');
+Route::get('/dashboard/paket/add', 'C_Paket@create');
+Route::post('/dashboard/paket', 'C_Paket@store');
+Route::get('/dashboard/paket/{paket}/edit', 'C_Paket@edit');
+Route::patch('/dashboard/paket/{paket}/edit', 'C_Paket@update');
+Route::delete('/dashboard/paket/{paket}/show', 'C_Paket@destroy');
+
+#Logout
+Route::get('/logout', 'authentikasi@logout');
+    
+});
+
+Route::get('/dashboard', function () {
     return view('dashboard/admin/index');
 });
-Route::get('/login', function () {
-    return view('auth/login');
-});
-Route::get('/register', function () {
-    return view('auth/register');
-});
-Route::get('/dashboard/admin/pesanan', function () {
+
+Route::get('/dashboard/pesanan', function () {
     return view('dashboard/admin/d_pesanan/index');
 });

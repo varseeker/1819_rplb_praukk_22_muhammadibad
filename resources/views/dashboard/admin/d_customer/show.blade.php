@@ -10,41 +10,87 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-                <a class="navbar-brand" href="#">LaundryIN</a>
-                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                    aria-expanded="false" aria-label="Toggle navigation"></button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/dashboard/admin">Home </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="customer">Data Customer <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="pesanan">Data Transaksi</a>
-                      </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Data Petugas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Data Outlet</a>
-                        </li>
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#">Action 1</a>
-                                <a class="dropdown-item" href="#">Action 2</a>
-                            </div>
-                        </li> -->
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">LaundryIN</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard </a>
+                </li>
+                @if (Auth::user()->role == 'Admin' )
+                  <li class="nav-item active">
+                  <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/pemilik') }}">Data Pemilik</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  </li>
+
+                  @elseif ( Auth::user()->role == 'Owner')
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  </li>
+
+                  @elseif ( Auth::user()->role == 'Petugas')
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  </li>
+
+                  @elseif ( Auth::user()->role == 'Customer')
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                  </li>
+                @endif
+
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownId">
+                        <a class="dropdown-item" href="#">Action 1</a>
+                        <a class="dropdown-item" href="#">Action 2</a>
+                    </div>
+                </li> -->
+            </ul>
+            <ul class="navbar-nav ml-auto ml-md-0">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                      <a class="dropdown-item" href="#">Settings</a>
+                      <a class="dropdown-item" href="#">Activity Log</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/logout">Logout</a>
+                  </div>
+              </li>
+          </ul>
+        </div>
+    </nav>
         <div class="container">
                 <table class="table">
                         <tr>
@@ -55,7 +101,7 @@
                 </table>
                 <div class="card">
                     <div class="card-header">
-                        Dashboard > Admin > Data Customer > Detail
+                        Dashboard > Data Customer > Detail
                         <form action="" method="POST" class="d-inline float-right">
                             @method('delete')
                             @csrf

@@ -11,29 +11,65 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-          <a class="navbar-brand" href="#">LaundryIN</a>
+          <a class="navbar-brand" href="/">LaundryIN</a>
           <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
               aria-expanded="false" aria-label="Toggle navigation"></button>
           <div class="collapse navbar-collapse" id="collapsibleNavId">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                   <li class="nav-item active">
-                      <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard <span class="sr-only">(current)</span></a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="admin/customer">Data Customer</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="admin/pesanan">Data Pesanan</a>
-                </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Data Petugas</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Data Pemilik</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Data Outlet</a>
-                  </li>
+                  @if (Auth::user()->role == 'Admin' )
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/pemilik') }}">Data Pemilik</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                    </li>
+
+                    @elseif ( Auth::user()->role == 'Owner')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                    </li>
+
+                    @elseif ( Auth::user()->role == 'Petugas')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/customer') }}">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                    </li>
+
+                    @elseif ( Auth::user()->role == 'Customer')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
+                    </li>
+                  @endif
+
                   <!-- <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data</a>
                       <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -42,10 +78,17 @@
                       </div>
                   </li> -->
               </ul>
-              <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                  <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-              </form>
+              <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
           </div>
       </nav>
 
@@ -53,7 +96,7 @@
       <table class="table">
       <tr>
             <td><h1 class="user-select-none mt-4">Dashboard</h1>
-                <p class="user-select-none mb-4">Selamat datang Admin di Dashboard LaundryIN </p>
+                <p class="user-select-none mb-4">Selamat datang {{ Auth::user()->name }} di Dashboard LaundryIN </p>
             </td>
             <td><center><a name="" id="" class="btn btn-primary mt-5" href="#" role="button">Data Pengguna</a></center></td>
       </tr>
