@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2021 at 04:55 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
+-- Generation Time: Mar 04, 2021 at 08:14 AM
+-- Server version: 10.1.35-MariaDB
+-- PHP Version: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,6 +25,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `activity_logs`
+-- (See below for the actual view)
+--
+CREATE TABLE `activity_logs` (
+`id` int(11)
+,`event` varchar(100)
+,`person` varchar(120)
+,`detail` varchar(150)
+,`created_at` timestamp
+,`updated_at` timestamp
+,`name` varchar(255)
+,`role` enum('Admin','Petugas','Owner','Customer')
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -33,8 +51,39 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `event` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+  `person` varchar(120) CHARACTER SET utf8mb4 NOT NULL,
+  `detail` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `event`, `person`, `detail`, `created_at`, `updated_at`) VALUES
+(1, 'LOGIN', '1', 'Admin Login Aplikasi', '2021-03-03 21:23:53', '2021-03-03 21:23:53'),
+(2, 'LOGIN', '1', 'Admin Melakukan Login Ke Aplikasi', '2021-03-03 21:37:58', '2021-03-03 21:37:58'),
+(3, 'LOGIN', '2', 'Customer Melakukan Login Ke Aplikasi', '2021-03-03 21:39:35', '2021-03-03 21:39:35'),
+(4, 'LOGIN', '4', 'Petugas Melakukan Login Ke Aplikasi', '2021-03-03 21:42:04', '2021-03-03 21:42:04'),
+(5, 'LOGIN', '1', 'Admin Melakukan Login Ke Aplikasi', '2021-03-03 21:49:35', '2021-03-03 21:49:35'),
+(6, 'LOGOUT', '1', 'Admin Melakukan Logout Dari Aplikasi', '2021-03-03 21:49:47', '2021-03-03 21:49:47'),
+(7, 'LOGOUT', '1', 'Customer Melakukan Logout Dari Aplikasi', '2021-03-03 21:49:47', '2021-03-03 21:49:47'),
+(8, 'LOGIN', '4', 'Petugas Melakukan Login Ke Aplikasi', '2021-03-03 21:50:54', '2021-03-03 21:50:54'),
+(9, 'LOGIN', '5', 'Owner Melakukan Login Ke Aplikasi', '2021-03-03 21:53:25', '2021-03-03 21:53:25'),
+(10, 'LOGOUT', '5', 'Owner Melakukan Logout Dari Aplikasi', '2021-03-03 21:53:30', '2021-03-03 21:53:30');
 
 -- --------------------------------------------------------
 
@@ -93,6 +142,14 @@ CREATE TABLE `t_detail_transaksi` (
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `t_detail_transaksi`
+--
+
+INSERT INTO `t_detail_transaksi` (`id`, `id_transaksi`, `id_paket`, `quantitas`, `keterangan`) VALUES
+('DTR001', 'TR001', 'PK01', 2, 'Tolong sekalian di setrika dengan rapih, akan saya beri lebih saat membayar'),
+('DTR002', 'TR002', 'PK02', 4, 'Usahakan untuk segera di proses karena saya akan gunakan untuk ke acara teman saya');
+
 -- --------------------------------------------------------
 
 --
@@ -112,7 +169,8 @@ CREATE TABLE `t_outlet` (
 
 INSERT INTO `t_outlet` (`id`, `nama`, `alamat`, `tlp`) VALUES
 ('K001', 'Rumah Bersih', 'Jln Jambu 3 No 10', '0831773590120'),
-('K002', 'Mari Mencuci', 'Jln Kang Mansur', '0218808321');
+('K002', 'Mari Mencuci', 'Jln Kang Mansur', '0218808321'),
+('K003', 'Mencuci Ramah Bareng', 'Jln Kahyangan 1', '12345678');
 
 -- --------------------------------------------------------
 
@@ -177,6 +235,14 @@ CREATE TABLE `t_transaksi` (
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `t_transaksi`
+--
+
+INSERT INTO `t_transaksi` (`id`, `id_outlet`, `id_customer`, `id_petugas`, `tgl_pesan`, `tgl_bayar`, `status`, `dibayar`, `total`) VALUES
+('TR001', 'K001', 'C001', 'P001', '2021-01-05 00:00:00', '2021-03-04 00:00:00', 'Selesei', 'Dibayar', 20000),
+('TR002', 'K002', 'C002', 'P002', '2021-03-02 00:00:00', '2021-03-04 00:00:00', 'Proses', 'Dibayar', 25000);
+
 -- --------------------------------------------------------
 
 --
@@ -186,10 +252,10 @@ CREATE TABLE `t_transaksi` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('Admin','Petugas','Owner','Customer') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('Admin','Petugas','Owner','Customer') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Customer',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -205,6 +271,15 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (4, 'Petugas', 'petugas@example.com', NULL, '$2y$10$0KG5oZJH5zpLbtTRUPZy4Osa7sskvllpnTD6tK3t/0yYxGk1UE0sq', 'Petugas', NULL, '2021-02-27 20:51:08', '2021-02-27 20:51:08'),
 (5, 'Owner', 'owner@example.com', NULL, '$2y$10$mzQkXIRmgIyWepkiA7fo2ubqph0v24W0NNN5ThcA9e2Bry3sGs0bK', 'Owner', NULL, '2021-02-27 20:51:55', '2021-02-27 20:51:55');
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `activity_logs`
+--
+DROP TABLE IF EXISTS `activity_logs`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `activity_logs`  AS  select `logs`.`id` AS `id`,`logs`.`event` AS `event`,`logs`.`person` AS `person`,`logs`.`detail` AS `detail`,`logs`.`created_at` AS `created_at`,`logs`.`updated_at` AS `updated_at`,`users`.`name` AS `name`,`users`.`role` AS `role` from (`logs` join `users` on((`logs`.`person` = `users`.`id`))) ;
+
 --
 -- Indexes for dumped tables
 --
@@ -213,6 +288,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -259,38 +340,32 @@ ALTER TABLE `t_petugas`
 --
 ALTER TABLE `t_transaksi`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `id_customer` (`id_customer`),
   ADD KEY `id_outlet` (`id_outlet`),
-  ADD KEY `id_petugas` (`id_petugas`),
-  ADD KEY `id_customer` (`id_customer`);
+  ADD KEY `id_petugas` (`id_petugas`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT for table `logs`
 --
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -300,22 +375,22 @@ ALTER TABLE `users`
 -- Constraints for table `t_detail_transaksi`
 --
 ALTER TABLE `t_detail_transaksi`
-  ADD CONSTRAINT `t_detail_transaksi_ibfk_1` FOREIGN KEY (`id_paket`) REFERENCES `t_paket` (`id`),
-  ADD CONSTRAINT `t_detail_transaksi_ibfk_2` FOREIGN KEY (`id_transaksi`) REFERENCES `t_transaksi` (`id`);
+  ADD CONSTRAINT `t_detail_transaksi_ibfk_1` FOREIGN KEY (`id_paket`) REFERENCES `t_paket` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_detail_transaksi_ibfk_2` FOREIGN KEY (`id_transaksi`) REFERENCES `t_transaksi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `t_paket`
 --
 ALTER TABLE `t_paket`
-  ADD CONSTRAINT `t_paket_ibfk_1` FOREIGN KEY (`id_outlet`) REFERENCES `t_outlet` (`id`);
+  ADD CONSTRAINT `t_paket_ibfk_1` FOREIGN KEY (`id_outlet`) REFERENCES `t_outlet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `t_transaksi`
 --
 ALTER TABLE `t_transaksi`
-  ADD CONSTRAINT `t_transaksi_ibfk_2` FOREIGN KEY (`id_outlet`) REFERENCES `t_outlet` (`id`),
-  ADD CONSTRAINT `t_transaksi_ibfk_3` FOREIGN KEY (`id_petugas`) REFERENCES `t_petugas` (`id`),
-  ADD CONSTRAINT `t_transaksi_ibfk_4` FOREIGN KEY (`id_customer`) REFERENCES `t_customer` (`id`);
+  ADD CONSTRAINT `t_transaksi_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `t_customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_transaksi_ibfk_2` FOREIGN KEY (`id_outlet`) REFERENCES `t_outlet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_transaksi_ibfk_3` FOREIGN KEY (`id_petugas`) REFERENCES `t_petugas` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

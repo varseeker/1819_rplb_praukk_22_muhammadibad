@@ -29,9 +29,6 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/pemilik') }}">Data Pemilik</a>
-                  </li>
                   <li class="nav-item active">
                       <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
@@ -63,7 +60,7 @@
 
                   @elseif ( Auth::user()->role == 'Customer')
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/pesanan') }}">Data Pesanan</a>
+                      <a class="nav-link" href="../../pesanan/pelanggan">Data Pesanan</a>
                   </li>
                   <li class="nav-item active">
                       <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
@@ -78,36 +75,60 @@
                     </div>
                 </li> -->
             </ul>
-            <ul class="navbar-nav ml-auto ml-md-0">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                      <a class="dropdown-item" href="#">Settings</a>
-                      <a class="dropdown-item" href="#">Activity Log</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="/logout">Logout</a>
-                  </div>
-              </li>
-          </ul>
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                @if (Route::has('register'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+                @endif
+                @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="/logout" method="GET" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                @endguest
+            </ul>
         </div>
     </nav>
         <div class="container">
                 <table class="table">
                         <tr>
-                              <td><h1 class="user-select-none mt-4">Detail Data Customer</h1>
-                                  <p class="user-select-none mb-2">Berikut adalah Detail data untuk Data Customer. </p>
+                              <td><h1 class="user-select-none mt-4">Detail Data Outlet</h1>
+                                  <p class="user-select-none mb-2">Berikut adalah Detail data untuk Data Outlet. </p>
                               </td>
                         </tr>
                 </table>
                 <div class="card">
                     <div class="card-header">
                         Dashboard > Admin > Data Outlet > Detail
+                        @if (Auth::User()->role == "Admin" && "Owner")
                         <form action="" method="POST" class="d-inline float-right">
                             @method('delete')
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                         <a name="" id="" class="btn btn-info float-right mr-3" href="../{{ $outlet->id }}/edit" role="button">Update</a>
+                        @endif
                     </div>
                     <div class="card-body">
         

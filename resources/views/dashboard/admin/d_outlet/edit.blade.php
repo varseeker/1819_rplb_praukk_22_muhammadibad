@@ -29,9 +29,6 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/pemilik') }}">Data Pemilik</a>
-                  </li>
                   <li class="nav-item active">
                       <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet <span class="sr-only">(current)</span></a>
                   </li>
@@ -78,30 +75,52 @@
                     </div>
                 </li> -->
             </ul>
-            <ul class="navbar-nav ml-auto ml-md-0">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                      <a class="dropdown-item" href="#">Settings</a>
-                      <a class="dropdown-item" href="#">Activity Log</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="/logout">Logout</a>
-                  </div>
-              </li>
-          </ul>
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                @if (Route::has('register'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+                @endif
+                @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="/logout" method="GET" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                @endguest
+            </ul>
         </div>
     </nav>
             <div class="container">
                 <table class="table">
                         <tr>
-                              <td><h1 class="user-select-none mt-4">Update Data Customer</h1>
-                                  <p class="user-select-none mb-2">Berikut adalah Form Edit data untuk Data Customer dengan ID {{ $customer->id }}. </p>
+                              <td><h1 class="user-select-none mt-4">Update Data Outlet</h1>
+                                  <p class="user-select-none mb-2">Berikut adalah Form Edit data untuk Data Outlet dengan ID {{ $outlet->id }}. </p>
                               </td>
                         </tr>
                 </table>
                 <div class="card">
                 <div class="card-header">
-                        Dashboard > Admin > Data Customer > Detail > Update
+                        Dashboard > Admin > Data Outlet > Detail > Update
                     </div>
                     <form action="edit" method="post">
                 @csrf
@@ -112,38 +131,28 @@
                 {{-- ID --}}
                 <h5 class="card-title">ID</h5>
                 <div class="form-group">
-                <input disabled type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="{{ $customer->id }}">
-                  <small id="helpId" class="form-text text-muted">ID Customer</small>
+                <input disabled type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="{{ $outlet->id }}">
+                  <small id="helpId" class="form-text text-muted">ID Outlet</small>
                 </div>
 
                 {{-- NAMA --}}
                 <h5 class="card-title">Nama</h5>
                 <div class="form-group">
-                <input type="text" class="form-control" name="nama" id="nama" aria-describedby="helpId" placeholder="Nama Customer" value="{{ $customer->nama }}">
-                    <small id="helpId" class="form-text text-muted">Nama Customer</small>
+                <input type="text" class="form-control" name="nama" id="nama" aria-describedby="helpId" placeholder="Nama Outlet" value="{{ $outlet->nama }}">
+                    <small id="helpId" class="form-text text-muted">Nama Outlet</small>
                 </div>
 
                 {{-- JENIS KELAMIN --}}
                 <h5 class="card-title">Alamat</h5>
                 <div class="form-group">
-                      <textarea class="form-control" name="alamat" id="alamat" rows="3">{{ $customer->alamat }}</textarea>
-                  <small id="helpId" class="form-text text-muted">Alamat Customer</small>
-                </div>
-
-                {{-- JENIS KELAMIN --}}
-                <h5 class="card-title">Jenis Kelamin</h5>
-                <div class="form-group">
-                    <select class="custom-select" name="jenis_kelamin" id="jenis_kelamin">
-                        <option value="Pria" @if($customer->jenis_kelamin == 'Pria') selected @endif >Pria</option>
-                        <option value="Wanita" @if($customer->jenis_kelamin == 'Wanita') selected @endif >Wanita</option>
-                    </select>
-                    <small id="helpId" class="form-text text-muted">Jenis Kelamin Customer</small>
+                      <textarea class="form-control" name="alamat" id="alamat" rows="3">{{ $outlet->alamat }}</textarea>
+                  <small id="helpId" class="form-text text-muted">Alamat Outlet</small>
                 </div>
 
                 {{-- NO TELEPHONE/HANDPHONE --}}
                 <h5 class="card-title">No Telephon / Handphone</h5>
                 <div class="form-group">
-                <input type="text" class="form-control" name="tlp" id="tlp" aria-describedby="helpId" placeholder="No Telephone/Handphone Customer" value="{{ $customer->tlp }}">
+                <input type="text" class="form-control" name="tlp" id="tlp" aria-describedby="helpId" placeholder="No Telephone/Handphone Outlet" value="{{ $outlet->tlp }}">
                     <small id="helpId" class="form-text text-muted">No Telephone/Handphone</small>
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

@@ -1,10 +1,12 @@
 <?php
+
 /**
-     * Controller untuk menghubungkan model outlet dengan segala aktifitas website.
-     * @author Muhammad Ibadurrahman Al-ahsan  
-     * @filesource M_Outlet.php
-     * @version Laravel 7.0
-     */
+ * Controller untuk menghubungkan model outlet dengan segala aktifitas website.
+ * @author Muhammad Ibadurrahman Al-ahsan  
+ * @filesource M_Outlet.php
+ * @version Laravel 7.0
+ */
+
 namespace App\Http\Controllers;
 
 use App\M_Outlet;
@@ -12,6 +14,7 @@ use App\M_Paket;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class C_Outlet extends Controller
 {
@@ -22,29 +25,28 @@ class C_Outlet extends Controller
      */
     public function index()
     {
-        
+
         $outlet = M_Outlet::paginate(5);
-        
+
         return view('dashboard.admin.d_outlet.index', compact('outlet'));
         $search = M_Outlet::search()->get();
     }
 
     public function cari(Request $request)
-	{
-		// menangkap data pencarian
-		$cari = $request->cari;
- 
-    		// mengambil data dari table outlet sesuai pencarian data
-		$outlet = DB::table('outlet')
-        ->where('nama','like',"%".$cari."%")
-        ->OrWhere('id','like',"%".$cari."%")
-		->paginate();
-        
-        
-    		// mengirim data outlet ke view index
-		return view('outlet.index',['outlet' => $outlet]);
- 
-	}
+    {
+        // menangkap data pencarian
+        $cari = $request->cari;
+
+        // mengambil data dari table outlet sesuai pencarian data
+        $outlet = DB::table('outlet')
+            ->where('nama', 'like', "%" . $cari . "%")
+            ->OrWhere('id', 'like', "%" . $cari . "%")
+            ->paginate();
+
+
+        // mengirim data outlet ke view index
+        return view('outlet.index', ['outlet' => $outlet]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -53,6 +55,12 @@ class C_Outlet extends Controller
      */
     public function create()
     {
+        if (Gate::allows('usir_customer')) {
+            return redirect('dashboard/outlet');
+        } elseif (Gate::allows('usir_petugas')) {
+            return redirect('dashboard/outlet');
+        }
+
         return view('dashboard.admin.d_outlet.add');
     }
 
@@ -66,7 +74,7 @@ class C_Outlet extends Controller
     {
         M_Outlet::create($request->all());
 
-        return redirect('/dashboard/admin/outlet')->with('status', 'Tambah data outlet berhasil !');
+        return redirect('/dashboard/outlet')->with('status', 'Tambah data outlet berhasil !');
     }
 
     /**
@@ -76,9 +84,10 @@ class C_Outlet extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($outlet)
-    {   
+    {
+
         $outlet = M_Outlet::findOrFail($outlet);
-        
+
         return view('dashboard.admin.d_outlet.show', compact('outlet'));
     }
 
@@ -90,6 +99,12 @@ class C_Outlet extends Controller
      */
     public function edit($outlet)
     {
+        if (Gate::allows('usir_customer')) {
+            return redirect('dashboard/outlet');
+        } elseif (Gate::allows('usir_petugas')) {
+            return redirect('dashboard/outlet');
+        }
+
         $outlet = M_Outlet::findOrFail($outlet);
 
         return view('dashboard.admin.d_outlet.edit', compact('outlet'));
@@ -102,16 +117,16 @@ class C_Outlet extends Controller
      * @param  int  $outlet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,M_Outlet $outlet)
+    public function update(Request $request, M_Outlet $outlet)
     {
-        M_Outlet::where('id', $outlet->id )
-        ->update([
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'tlp' => $request->tlp,
-        ]);
+        M_Outlet::where('id', $outlet->id)
+            ->update([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'tlp' => $request->tlp,
+            ]);
 
-        return redirect('/dashboard/admin/outlet')->with('status', 'Update data outlet berhasil !');
+        return redirect('/dashboard/outlet')->with('status', 'Update data outlet berhasil !');
     }
 
     /**
@@ -122,8 +137,14 @@ class C_Outlet extends Controller
      */
     public function destroy(M_Outlet $outlet)
     {
+        if (Gate::allows('usir_customer')) {
+            return redirect('dashboard/outlet');
+        } elseif (Gate::allows('usir_petugas')) {
+            return redirect('dashboard/outlet');
+        }
+
         M_Outlet::destroy($outlet->id);
 
-        return redirect('/dashboard/admin/outlet')->with('status', 'Hapus data outlet berhasil !');
+        return redirect('/dashboard/outlet')->with('status', 'Hapus data outlet berhasil !');
     }
 }

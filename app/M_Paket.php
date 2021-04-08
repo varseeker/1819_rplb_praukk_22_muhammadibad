@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class M_Outlet extends Model
+class M_Paket extends Model
 {
-    protected $table = 't_outlet';
+    protected $table = 't_paket';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
-    protected $fillable = ['id','nama', 'alamat', 'tlp'];
+    protected $fillable = ['id','id_outlet', 'jenis', 'nama_paket', 'harga'];
 
     public function outlet()
     {
-        return $this->belongsTo('App\M_Outlet', 'id', 'id_outlet');
+        return $this->belongsTo('App\M_Outlet', 'id_outlet', 'id');
     }
 }

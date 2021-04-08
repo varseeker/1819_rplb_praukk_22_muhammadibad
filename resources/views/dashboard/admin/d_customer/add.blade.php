@@ -30,9 +30,6 @@
                       <a class="nav-link" href="{{ url('/dashboard/petugas') }}">Data Petugas</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ url('/dashboard/pemilik') }}">Data Pemilik</a>
-                  </li>
-                  <li class="nav-item">
                       <a class="nav-link" href="{{ url('/dashboard/outlet') }}">Data Outlet</a>
                   </li>
 
@@ -78,17 +75,39 @@
                     </div>
                 </li> -->
             </ul>
-            <ul class="navbar-nav ml-auto ml-md-0">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                      <a class="dropdown-item" href="#">Settings</a>
-                      <a class="dropdown-item" href="#">Activity Log</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="/logout">Logout</a>
-                  </div>
-              </li>
-          </ul>
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                @if (Route::has('register'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+                @endif
+                @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="/logout" method="GET" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                @endguest
+            </ul>>
         </div>
     </nav>
             <div class="container">
@@ -98,7 +117,7 @@
                         <div class="card-header">
                             Dashboard > Data Customer > Tambah Data Customer
                         </div>
-                        <form action="/dashboard/admin/customer" method="post">
+                        <form action="/dashboard/customer" method="post">
                             @csrf
             
                         <div class="card-body">
